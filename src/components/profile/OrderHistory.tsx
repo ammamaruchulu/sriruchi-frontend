@@ -60,13 +60,14 @@ export default function OrderHistory({ orders, loading, totalOrders, onRefresh }
                   console.log("Order Item Data:", item); 
                   return (
                     <img 
-                      key={i} 
-                      // Ensure this matches the field in your API response
-                      src={item.image_url ? `${apiBase}${item.image_url}` : '/placeholder.png'}
-                      alt={item.product_name}
-                      className="w-14 h-14 rounded-lg border-2 border-white object-cover bg-gray-100" 
-                      onError={(e) => { e.currentTarget.src = '/placeholder.png'; }}
-                    />
+  src={item.image_url} // Since your API is now sending the full absolute URL, you don't need apiBase!
+  alt={item.product_name}
+  className="w-14 h-14 rounded-lg border-2 border-white object-cover bg-gray-100" 
+  onError={(e) => { 
+    console.error("Image failed to load:", e.currentTarget.src);
+    e.currentTarget.src = '/placeholder.png'; 
+  }}
+/>
                   );
                 })}
               </div>
