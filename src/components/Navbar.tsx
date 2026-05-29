@@ -230,12 +230,11 @@ export function Navbar() {
               </div>
             ) : (
               <Link
-                to="/login"
-                className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full border border-primary/20 hover:border-primary hover:bg-primary/5 text-sm font-semibold transition-all"
-              >
-                <User className="h-4 w-4" />
-                
-              </Link>
+  to="/login"
+  className="flex items-center justify-center w-10 h-10 rounded-full border border-primary/20 hover:border-primary hover:bg-primary/5 transition-all"
+>
+  <User className="h-4 w-4" />
+</Link>
             )}
 
             {/* Mobile menu */}
