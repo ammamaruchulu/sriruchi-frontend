@@ -32,7 +32,7 @@ const STATUS_MAP: Record<string, { label: string; color: string; icon: React.Ele
 };
 export default function OrderHistory({ orders, loading, totalOrders, onRefresh }: any) {
   const [expandedId, setExpandedId] = useState<number | null>(null);
-
+  const apiBase = import.meta.env.VITE_API_URL?.replace('/api', '') || 'https://api.sriruchipachallu.in'
   if (loading) return <div className="space-y-4 animate-pulse">{[1,2].map(i => <div key={i} className="h-28 bg-gray-50 rounded-xl"/>)}</div>;
 
   return (
@@ -62,7 +62,7 @@ export default function OrderHistory({ orders, loading, totalOrders, onRefresh }
                     <img 
                       key={i} 
                       // Ensure this matches the field in your API response
-                      src={item.image_url || '/placeholder.png'} 
+                      src={item.image_url ? `${apiBase}${item.image_url}` : '/placeholder.png'}
                       alt={item.product_name}
                       className="w-14 h-14 rounded-lg border-2 border-white object-cover bg-gray-100" 
                       onError={(e) => { e.currentTarget.src = '/placeholder.png'; }}
