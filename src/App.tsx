@@ -11,6 +11,11 @@ import AboutPage from "@/pages/AboutPage";
 import ServicesPage from "@/pages/ServicesPage";
 import ProductsPage from "@/pages/ProductsPage";
 import ContactPage from "@/pages/ContactPage";
+import { AuthProvider } from '@/contexts/AuthContext';
+import LoginPage from '@/pages/LoginPage';
+import UserProfile from '@/pages/UserProfile';
+import ProtectedRoute from '@/components/ProtectedRoute';
+import Checkout from '@/pages/CheckoutPage';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -36,26 +41,41 @@ function NotFoundPage() {
 
 export default function App() {
   return (
-    <CartProvider>
-      <ScrollToTop />
-      <div className="min-h-screen bg-background text-foreground">
-        <Navbar />
-        <main className="pt-20">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/services" element={<ServicesPage />} />
-            <Route path="/products" element={<ProductsPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="/home" element={<Navigate to="/" replace />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-        </main>
-        <Footer />
-        <CartDrawer />
-        <FloatingWhatsApp />
-        <Toaster position="top-center" richColors />
-      </div>
-    </CartProvider>
+    <AuthProvider>
+      <CartProvider>
+        <ScrollToTop />
+
+        <div className="min-h-screen bg-background text-foreground">
+          <Navbar />
+
+          <main className="pt-20">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/services" element={<ServicesPage />} />
+              <Route path="/products" element={<ProductsPage />} />
+              <Route path="/contact" element={<ContactPage />} />
+
+              {/* AUTH ROUTES */}
+              <Route path="/login" element={<LoginPage />} />
+              {/* PROTECTED ROUTES */}
+<Route element={<ProtectedRoute />}>
+  <Route path="/profile" element={<UserProfile />} />
+  <Route path="/checkout" element={<Checkout />} />
+</Route>
+
+              <Route path="/home" element={<Navigate to="/" replace />} />
+
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </main>
+
+          <Footer />
+          <CartDrawer />
+          <FloatingWhatsApp />
+          <Toaster position="top-center" richColors />
+        </div>
+      </CartProvider>
+    </AuthProvider>
   );
 }
