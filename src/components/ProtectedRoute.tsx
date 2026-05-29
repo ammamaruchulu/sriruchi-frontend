@@ -6,6 +6,9 @@ export default function ProtectedRoute() {
   const location = useLocation();
 
   if (!isLoggedIn) {
+    // Save the intended path to localStorage so it survives the Google redirect
+    localStorage.setItem('afterLoginRedirect', location.pathname);
+    
     return (
       <Navigate
         to="/login"

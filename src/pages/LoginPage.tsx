@@ -36,7 +36,10 @@ export default function LoginPage() {
   const { login, signup, googleLogin } = useAuth();
 
   const redirectTo =
-  (location.state as { redirectTo?: string })?.redirectTo || '/profile';
+  
+    (location.state as { redirectTo?: string })?.redirectTo ||
+    localStorage.getItem('afterLoginRedirect') ||
+    '/profile';
 
   const [mode, setMode] = useState<Mode>('login');
   const [showPass, setShowPass] = useState(false);
@@ -76,6 +79,7 @@ export default function LoginPage() {
         });
         toast.success('Account created! Welcome to Sri Ruchi 🌶️');
       }
+      localStorage.removeItem('afterLoginRedirect');
       navigate(redirectTo, { replace: true });
     } catch (err: unknown) {
       const message =
@@ -105,8 +109,11 @@ export default function LoginPage() {
         }
         try {
           await googleLogin(response.access_token);
-          toast.success('Signed in with Google! 🌶️');
-          navigate(redirectTo, { replace: true });
+        toast.success('Signed in with Google! 🌶️');
+        
+        // Clear the redirect and navigate
+        localStorage.removeItem('afterLoginRedirect');
+        navigate(redirectTo, { replace: true });
         } catch {
           toast.error('Google login failed. Please try again.');
         } finally {
