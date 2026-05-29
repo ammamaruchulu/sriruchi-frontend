@@ -33,7 +33,7 @@ const EMPTY_FORM = {
 };
 
 export default function UserProfile() {
-  const { logout, user: authUser, refreshUser } = useAuth();
+  const { logout, user: authUser, refreshUser ,loading} = useAuth();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -61,11 +61,15 @@ export default function UserProfile() {
   const [updating, setUpdating] = useState(false);
 
   // ── Auth guard ────────────────────────────────────────────────────────────
+// ── Auth guard ────────────────────────────────────────────────────────────
   useEffect(() => {
-    if (!authUser) {
-      navigate("/login", { state: { redirectTo: "/profile?tab=orders" } });
+    // Wait until the auth process has finished (loading === false)
+    if (!loading && !authUser) {
+      // Save the current path to localStorage to survive the redirect
+      localStorage.setItem('afterLoginRedirect', "/profile?tab=orders");
+      navigate("/login", { replace: true });
     }
-  }, [authUser, navigate]);
+  }, [authUser, loading, navigate]);
 
   // ── Orders loader ─────────────────────────────────────────────────────────
   const loadOrders = useCallback(async (page: number) => {

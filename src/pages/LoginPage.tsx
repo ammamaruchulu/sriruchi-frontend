@@ -33,7 +33,7 @@ type Mode = 'login' | 'signup';
 export default function LoginPage() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { login, signup, googleLogin } = useAuth();
+  const { login, signup, googleLogin, refreshUser } = useAuth(); // Added refreshUser
 
   const redirectTo =
   
@@ -107,16 +107,20 @@ export default function LoginPage() {
           setGoogleLoading(false);
           return;
         }
-        try {
-          await googleLogin(response.access_token);
+        // Inside handleGoogleLogin callback (replace the try block):
+      try {
+        await googleLogin(response.access_token);
+        // Wait for the context to refresh the user profile
+        await refreshUser(); 
+        
         toast.success('Signed in with Google! 🌶️');
         
-        // Clear the redirect and navigate
+        const nextPath = localStorage.getItem('afterLoginRedirect') || '/profile';
         localStorage.removeItem('afterLoginRedirect');
-        navigate(redirectTo, { replace: true });
-        } catch {
-          toast.error('Google login failed. Please try again.');
-        } finally {
+        navigate(nextPath, { replace: true });
+      } catch {
+        toast.error('Google login failed. Please try again.');
+      }finally {
           setGoogleLoading(false);
         }
       },
