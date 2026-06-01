@@ -255,23 +255,25 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background pt-10 pb-20 px-4">
+    <div className="min-h-screen bg-background pt-6 md:pt-10 pb-20 px-3 md:px-4">
       <div className="container mx-auto max-w-5xl">
-        <h1 className="text-2xl font-bold mb-8 text-foreground">Checkout</h1>
+        <h1 className="text-xl md:text-2xl font-bold mb-6 md:mb-8 text-foreground">
+  Checkout
+</h1>
 
-        <div className="grid lg:grid-cols-2 gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-10">
 
           {/* ── LEFT: Address + Payment ────────────────────────────────────── */}
           <div className="space-y-6">
 
             {/* Saved Address Cards */}
-            <div className="bg-card p-8 rounded-2xl border shadow-sm">
+            <div className="bg-card p-4 md:p-8 rounded-2xl border shadow-sm">
               <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
                 <MapPin className="text-primary w-5 h-5" /> Delivery Address
               </h2>
 
               {savedAddresses.length > 0 && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+                <div className="grid grid-cols-1 gap-3 mb-6">
                   {savedAddresses.map(addr => {
                     const isSelected = selectedAddressId === addr.id;
                     return (
@@ -325,16 +327,16 @@ export default function CheckoutPage() {
               )}
 
               {/* Address form (always visible — filled or blank) */}
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
                 <input
                   name="first_name" placeholder="First Name"
                   value={formData.first_name} onChange={handleInputChange}
-                  className="p-3 border rounded-xl bg-background focus:outline-none focus:ring-1 focus:ring-primary"
+                  className="w-full p-3 text-sm border rounded-xl bg-background focus:outline-none focus:ring-1 focus:ring-primary"
                 />
                 <input
                   name="last_name" placeholder="Last Name"
                   value={formData.last_name} onChange={handleInputChange}
-                  className="p-3 border rounded-xl bg-background focus:outline-none focus:ring-1 focus:ring-primary"
+                  className="w-full p-3 text-sm border rounded-xl bg-background focus:outline-none focus:ring-1 focus:ring-primary"
                 />
                 <input
                   name="address" placeholder="Street Address"
@@ -349,22 +351,22 @@ export default function CheckoutPage() {
                 <input
                   name="city" placeholder="City"
                   value={formData.city} onChange={handleInputChange}
-                  className="p-3 border rounded-xl bg-background focus:outline-none focus:ring-1 focus:ring-primary"
+                  className="w-full p-3 text-sm border rounded-xl bg-background focus:outline-none focus:ring-1 focus:ring-primary"
                 />
                 <input
                   name="state" placeholder="State"
                   value={formData.state} onChange={handleInputChange}
-                  className="p-3 border rounded-xl bg-background focus:outline-none focus:ring-1 focus:ring-primary"
+                  className="w-full p-3 text-sm border rounded-xl bg-background focus:outline-none focus:ring-1 focus:ring-primary"
                 />
                 <input
                   name="zip_code" placeholder="PIN Code"
                   value={formData.zip_code} onChange={handleInputChange}
-                  className="p-3 border rounded-xl bg-background focus:outline-none focus:ring-1 focus:ring-primary"
+                  className="w-full p-3 text-sm border rounded-xl bg-background focus:outline-none focus:ring-1 focus:ring-primary"
                 />
                 <input
                   name="phone" placeholder="Phone"
                   value={formData.phone} onChange={handleInputChange}
-                  className="p-3 border rounded-xl bg-background focus:outline-none focus:ring-1 focus:ring-primary"
+                  className="w-full p-3 text-sm border rounded-xl bg-background focus:outline-none focus:ring-1 focus:ring-primary"
                 />
               </div>
 
@@ -386,7 +388,7 @@ export default function CheckoutPage() {
             </div>
 
             {/* Payment Method */}
-            <div className="bg-card p-8 rounded-2xl border shadow-sm">
+            <div className="bg-card p-4 md:p-8 rounded-2xl border shadow-sm">
               <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
                 <Wallet className="w-5 h-5 text-primary" /> Payment Method
               </h3>
@@ -421,11 +423,11 @@ export default function CheckoutPage() {
           </div>
 
           {/* ── RIGHT: Order Summary ───────────────────────────────────────── */}
-          <div className="bg-card p-8 rounded-2xl border shadow-sm h-fit sticky top-24">
+          <div className="bg-card p-4 md:p-8 rounded-2xl border shadow-sm h-fit lg:sticky lg:top-24">
             <h3 className="font-bold text-lg mb-4">Order Summary</h3>
 
             {/* Coupon */}
-            <div className="flex gap-2 mb-6">
+            <div className="flex flex-col sm:flex-row gap-2 mb-6">
               <input
                 placeholder="Coupon Code"
                 value={couponCode}
@@ -498,7 +500,7 @@ export default function CheckoutPage() {
             <button
               onClick={handlePlaceOrder}
               disabled={loading}
-              className="w-full mt-6 bg-primary text-primary-foreground py-4 rounded-xl font-bold hover:opacity-90 transition-all disabled:opacity-60 flex items-center justify-center gap-2"
+              className="w-full mt-6 bg-primary text-primary-foreground py-3 md:py-4 text-sm md:text-base rounded-xl font-bold hover:opacity-90 transition-all disabled:opacity-60 flex items-center justify-center gap-2"
             >
               {loading
                 ? <><Loader2 className="w-5 h-5 animate-spin" /> Processing...</>
