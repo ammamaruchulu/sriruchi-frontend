@@ -7,6 +7,9 @@ import axios from 'axios';
 // TYPES
 // ─────────────────────────────────────────────────────────────────────────────
 
+export interface SiteSettings {
+  happy_families_count: number;
+}
 export interface User {
   id: number;
   email: string;
@@ -247,6 +250,8 @@ export const storeService = {
 
   getShippingConfig: async (): Promise<ShippingConfig> =>
     (await api.get('/store/shipping/')).data,
+  getSiteSettings: async (): Promise<SiteSettings> =>
+  (await api.get('/store/site-settings/')).data,
 };
 
 // ─────────────────────────────────────────────────────────────────────────────

@@ -173,7 +173,7 @@ disabled={qty >= variant.stock}
 
         {/* ── CTA Buttons ── */}
         {inCart ? (
-          <div className="mt-4 grid grid-cols-2 gap-2">
+          <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2">
             <button
               onClick={() => setIsOpen(true)}
               className="py-3 rounded-full bg-leaf/15 text-leaf font-semibold flex items-center justify-center gap-2 hover:bg-leaf/25 transition-all text-sm"
@@ -195,7 +195,7 @@ disabled={qty >= variant.stock}
     className="py-3 rounded-full bg-primary text-primary-foreground font-semibold flex items-center justify-center gap-2 hover:bg-primary/90 hover:scale-[1.02] active:scale-95 transition-all shadow-soft hover:shadow-warm disabled:opacity-50 disabled:cursor-not-allowed text-sm"
   >
     <ShoppingCart className="h-4 w-4" />
-    <span className="hidden sm:inline">Add to Cart</span>
+    <span>Add to Cart</span>
   </button>
 
   <button
@@ -204,7 +204,7 @@ disabled={qty >= variant.stock}
     className="py-3 rounded-full border-2 border-primary text-primary font-semibold flex items-center justify-center gap-2 hover:bg-primary hover:text-primary-foreground active:scale-95 transition-all text-sm disabled:opacity-50 disabled:cursor-not-allowed"
   >
     <Zap className="h-4 w-4" />
-    <span className="hidden sm:inline">Buy Now</span>
+    <span>Buy Now</span>
   </button>
 </div>
         )}

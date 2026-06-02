@@ -13,23 +13,28 @@ import { ArrowRight, Sparkles, Leaf, Flame, ShieldCheck, Truck, Heart, Star } fr
 import { Reveal } from '@/components/Reveal';
 import { ProductCard } from '@/components/ProductCard';
 import { storeService, type Product } from '@/services/api';
-import hero1 from '@/assets/hero-pickle-1.jpg';
-import hero2 from '@/assets/hero-pickle-2.jpg';
-import hero3 from '@/assets/hero-pickle-3.jpg';
-import hero4 from '@/assets/hero-pickle-4.jpg';
-import aboutImg from '@/assets/about-process.jpg';
+import hero1 from '@/assets/h1.jpeg';
+import hero2 from '@/assets/h2.jpeg';
+import hero3 from '@/assets/h3.jpeg';
+import hero4 from '@/assets/h4.jpeg';
+import aboutImg from '@/assets/about.jpeg';
 import spices from '@/assets/spices-banner.jpg';
 
 const heroImages = [hero1, hero2, hero3, hero4];
 
 export default function HomePage() {
   const [bestsellers, setBestsellers] = useState<Product[]>([]);
+  const [siteSettings, setSiteSettings] = useState<{
+  happy_families_count: number;
+}>({
+  happy_families_count: 1000,
+});
 
-  useEffect(() => {
-    storeService.getProducts({ best_seller: true })
-      .then((data) => setBestsellers((Array.isArray(data) ? data : []).slice(0, 6)))
-      .catch(() => {/* fail silently on home page */});
-  }, []);
+useEffect(() => {
+  storeService.getSiteSettings()
+    .then(setSiteSettings)
+    .catch(() => {});
+}, []);
 
   return (
     <div className="overflow-x-hidden">
@@ -77,7 +82,9 @@ export default function HomePage() {
                   ))}
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  <span className="font-bold text-foreground">1000+</span> happy families served
+                  <span className="font-bold text-foreground">
+  {siteSettings.happy_families_count}+ Families
+</span>
                 </p>
               </div>
             </motion.div>
