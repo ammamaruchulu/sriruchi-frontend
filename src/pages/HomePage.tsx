@@ -35,6 +35,16 @@ useEffect(() => {
     .then(setSiteSettings)
     .catch(() => {});
 }, []);
+useEffect(() => {
+  storeService
+    .getProducts({ best_seller: true })
+    .then((products) => {
+      setBestsellers(products.slice(0, 6));
+    })
+    .catch((err) => {
+      console.error("Failed to load bestsellers:", err);
+    });
+}, []);
 
   return (
     <div className="overflow-x-hidden">
